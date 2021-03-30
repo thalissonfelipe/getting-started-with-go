@@ -1,6 +1,9 @@
 package iteration
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestIteration(t *testing.T) {
 	verifyCorrectOutput := func(t *testing.T, result, expected string) {
@@ -27,4 +30,10 @@ func BenchmarkIteration(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Iteration("a", 5)
 	}
+}
+
+func ExampleIteration() {
+	result := Iteration("a", 5)
+	fmt.Println(result)
+	// Output: aaaaa
 }
