@@ -27,4 +27,10 @@ func TestHello(t *testing.T) {
 		expect := "Hola, Felipe"
 		verifyCorrectMessage(t, result, expect)
 	})
+
+	t.Run("should say a hello message in french", func(t *testing.T) {
+		result := Hello("Felipe", "french")
+		expect := "Bonjour, Felipe"
+		verifyCorrectMessage(t, result, expect)
+	})
 }
