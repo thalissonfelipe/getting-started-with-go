@@ -28,3 +28,11 @@ func TestSumAll(t *testing.T) {
 		t.Errorf("result %v, expected %v", result, expected)
 	}
 }
+
+func TestSumAllRest(t *testing.T) {
+	result := SumAllRest([]int{1, 2}, []int{0, 9})
+	expected := []int{2, 9}
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("result %v, expected %v", result, expected)
+	}
+}
