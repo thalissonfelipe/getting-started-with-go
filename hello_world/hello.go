@@ -6,18 +6,19 @@ const prefixHelloEnglish = "Hello, "
 const prefixHelloSpanish = "Hola, "
 const prefixHelloFrench = "Bonjour, "
 
-func Hello(name string, language string) string {
+func Hello(name, language string) string {
 	if name == "" {
 		name = "world"
 	}
 
-	if language == spanish {
-		return prefixHelloSpanish + name
+	prefix := prefixHelloEnglish
+
+	switch language {
+	case spanish:
+		prefix = prefixHelloSpanish
+	case french:
+		prefix = prefixHelloFrench
 	}
 
-	if language == french {
-		return prefixHelloFrench + name
-	}
-
-	return prefixHelloEnglish + name
+	return prefix + name
 }
