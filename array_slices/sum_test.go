@@ -30,9 +30,19 @@ func TestSumAll(t *testing.T) {
 }
 
 func TestSumAllRest(t *testing.T) {
-	result := SumAllRest([]int{1, 2}, []int{0, 9})
-	expected := []int{2, 9}
-	if !reflect.DeepEqual(result, expected) {
-		t.Errorf("result %v, expected %v", result, expected)
-	}
+	t.Run("should sum slices", func(t *testing.T) {
+		result := SumAllRest([]int{1, 2}, []int{0, 9})
+		expected := []int{2, 9}
+		if !reflect.DeepEqual(result, expected) {
+			t.Errorf("result %v, expected %v", result, expected)
+		}
+	})
+
+	t.Run("should sum empty slices safely", func(t *testing.T) {
+		result := SumAllRest([]int{}, []int{3, 4, 5})
+		expected := []int{0, 9}
+		if !reflect.DeepEqual(result, expected) {
+			t.Errorf("result %v, expected %v", result, expected)
+		}
+	})
 }
