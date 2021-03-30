@@ -1,6 +1,9 @@
 package integers
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestAdd(t *testing.T) {
 	result := Add(2, 2)
@@ -9,4 +12,10 @@ func TestAdd(t *testing.T) {
 	if result != expected {
 		t.Errorf("result '%d', expected '%d", result, expected)
 	}
+}
+
+func ExampleAdd() {
+	result := Add(1, 5)
+	fmt.Println(result)
+	// Output: 6
 }
