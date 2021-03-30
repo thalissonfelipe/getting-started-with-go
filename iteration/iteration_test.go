@@ -22,3 +22,9 @@ func TestIteration(t *testing.T) {
 		verifyCorrectOutput(t, result, expected)
 	})
 }
+
+func BenchmarkIteration(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Iteration("a", 5)
+	}
+}
