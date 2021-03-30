@@ -13,23 +13,22 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
-	t.Run("should return an area when the object is a rectangle", func(t *testing.T) {
-		rectangle := Rectangle{12.0, 6.0}
-		result := rectangle.Area()
-		expected := 72.0
+	verifyArea := func(t *testing.T, form Form, expected float64) {
+		t.Helper()
+		result := form.Area()
 
 		if result != expected {
 			t.Errorf("result %.2f expected %.2f", result, expected)
 		}
+	}
+
+	t.Run("should return an area when the object is a rectangle", func(t *testing.T) {
+		rectangle := Rectangle{12.0, 6.0}
+		verifyArea(t, rectangle, 72.0)
 	})
 
 	t.Run("should return an area when the object is a circle", func(t *testing.T) {
 		circle := Circle{10.0}
-		result := circle.Area()
-		expected := 314.1592653589793
-
-		if result != expected {
-			t.Errorf("result %.2f expected %.2f", result, expected)
-		}
+		verifyArea(t, circle, 314.1592653589793)
 	})
 }
