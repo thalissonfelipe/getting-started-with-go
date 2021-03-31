@@ -1,6 +1,9 @@
 package pointers_errors
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type Bitcoin int
 type Wallet struct {
@@ -19,8 +22,13 @@ func (w *Wallet) Balance() Bitcoin {
 	return w.balance
 }
 
-func (w *Wallet) Withdraw(value Bitcoin) {
+func (w *Wallet) Withdraw(value Bitcoin) error {
+	if value > w.balance {
+		return errors.New("error")
+	}
+
 	w.balance -= value
+	return nil
 }
 
 func (b Bitcoin) String() string {
