@@ -12,10 +12,16 @@ func TestWallet(t *testing.T) {
 		}
 	}
 
-	verifyError := func(t *testing.T, err error) {
+	verifyError := func(t *testing.T, err error, expected string) {
 		t.Helper()
 		if err == nil {
-			t.Error("waited for an error, but none occurred")
+			t.Fatal("waited for an error, but none occurred")
+		}
+
+		result := err.Error()
+
+		if result != expected {
+			t.Errorf("result %s, expected %s", result, expected)
 		}
 	}
 
@@ -37,6 +43,6 @@ func TestWallet(t *testing.T) {
 		err := wallet.Withdraw(Bitcoin(100))
 
 		verifyBalance(t, wallet, inititalBalance)
-		verifyError(t, err)
+		verifyError(t, err, "unable to withdraw: insufficient balance")
 	})
 }
