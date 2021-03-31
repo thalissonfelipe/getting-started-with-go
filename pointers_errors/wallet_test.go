@@ -3,28 +3,6 @@ package pointers_errors
 import "testing"
 
 func TestWallet(t *testing.T) {
-	verifyBalance := func(t *testing.T, wallet Wallet, expected Bitcoin) {
-		t.Helper()
-		result := wallet.Balance()
-
-		if result != expected {
-			t.Errorf("result %s, expected %s", result, expected)
-		}
-	}
-
-	verifyError := func(t *testing.T, err error, expected string) {
-		t.Helper()
-		if err == nil {
-			t.Fatal("waited for an error, but none occurred")
-		}
-
-		result := err.Error()
-
-		if result != expected {
-			t.Errorf("result %s, expected %s", result, expected)
-		}
-	}
-
 	t.Run("Deposit", func(t *testing.T) {
 		wallet := Wallet{}
 		wallet.Deposit(Bitcoin(10))
@@ -43,6 +21,26 @@ func TestWallet(t *testing.T) {
 		err := wallet.Withdraw(Bitcoin(100))
 
 		verifyBalance(t, wallet, inititalBalance)
-		verifyError(t, err, "unable to withdraw: insufficient balance")
+		verifyError(t, err, ErrInsufficientBalance)
 	})
+}
+
+func verifyBalance(t *testing.T, wallet Wallet, expected Bitcoin) {
+	t.Helper()
+	result := wallet.Balance()
+
+	if result != expected {
+		t.Errorf("result %s, expected %s", result, expected)
+	}
+}
+
+func verifyError(t *testing.T, result error, expected error) {
+	t.Helper()
+	if result == nil {
+		t.Fatal("waited for an error, but none occurred")
+	}
+
+	if result != expected {
+		t.Errorf("result %s, expected %s", result, expected)
+	}
 }
