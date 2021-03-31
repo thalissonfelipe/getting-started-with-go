@@ -11,8 +11,10 @@ func TestWallet(t *testing.T) {
 
 	t.Run("Withdraw", func(t *testing.T) {
 		wallet := Wallet{balance: Bitcoin(20)}
-		wallet.Withdraw(Bitcoin(10))
+		err := wallet.Withdraw(Bitcoin(10))
+
 		verifyBalance(t, wallet, Bitcoin(10))
+		verifyNonexistentError(t, err)
 	})
 
 	t.Run("Withdraw with insufficient balance", func(t *testing.T) {
@@ -31,6 +33,13 @@ func verifyBalance(t *testing.T, wallet Wallet, expected Bitcoin) {
 
 	if result != expected {
 		t.Errorf("result %s, expected %s", result, expected)
+	}
+}
+
+func verifyNonexistentError(t *testing.T, result error) {
+	t.Helper()
+	if result != nil {
+		t.Fatal("unexpected error ocurred")
 	}
 }
 
