@@ -24,7 +24,7 @@ func (w *Wallet) Balance() Bitcoin {
 
 func (w *Wallet) Withdraw(value Bitcoin) error {
 	if value > w.balance {
-		return errors.New("error")
+		return errors.New("unable to withdraw: insufficient balance")
 	}
 
 	w.balance -= value
