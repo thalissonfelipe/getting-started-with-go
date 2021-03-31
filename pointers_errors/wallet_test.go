@@ -12,6 +12,13 @@ func TestWallet(t *testing.T) {
 		}
 	}
 
+	verifyError := func(t *testing.T, err error) {
+		t.Helper()
+		if err == nil {
+			t.Error("waited for an error, but none occurred")
+		}
+	}
+
 	t.Run("Deposit", func(t *testing.T) {
 		wallet := Wallet{}
 		wallet.Deposit(Bitcoin(10))
@@ -30,9 +37,6 @@ func TestWallet(t *testing.T) {
 		err := wallet.Withdraw(Bitcoin(100))
 
 		verifyBalance(t, wallet, inititalBalance)
-
-		if err == nil {
-			t.Error("waited for an error but none occurred")
-		}
+		verifyError(t, err)
 	})
 }
