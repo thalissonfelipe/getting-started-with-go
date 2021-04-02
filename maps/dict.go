@@ -14,3 +14,7 @@ func (d Dict) Search(word string) (string, error) {
 
 	return value, nil
 }
+
+func (d Dict) Add(word, value string) {
+	d[word] = value
+}
