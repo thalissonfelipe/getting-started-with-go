@@ -3,8 +3,9 @@ package maps
 import "testing"
 
 func TestSearch(t *testing.T) {
-	dict := map[string]string{"test": "this is just a test"}
-	result := Search(dict, "test")
+	dict := Dict{"test": "this is just a test"}
+
+	result := dict.Search("test")
 	expected := "this is just a test"
 
 	compareStrings(t, result, expected)
