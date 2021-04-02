@@ -15,9 +15,7 @@ func TestSearch(t *testing.T) {
 	t.Run("search an unknown word", func(t *testing.T) {
 		_, err := dict.Search("unknown")
 
-		if err == nil {
-			t.Fatal("an error is expected to be obtained")
-		}
+		compareError(t, err, ErrNotFound)
 	})
 }
 
@@ -26,5 +24,13 @@ func compareStrings(t *testing.T, result, expected string) {
 
 	if result != expected {
 		t.Errorf("result '%s', expected '%s', given '%s'", result, expected, "test")
+	}
+}
+
+func compareError(t *testing.T, result, expected error) {
+	t.Helper()
+
+	if result != expected {
+		t.Errorf("result '%s', expected '%s'", result, expected)
 	}
 }
