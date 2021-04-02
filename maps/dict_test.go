@@ -19,6 +19,17 @@ func TestSearch(t *testing.T) {
 	})
 }
 
+func TestAdd(t *testing.T) {
+	dict := Dict{}
+	dict.Add("test", "this is just a test")
+
+	result, err := dict.Search("test")
+	expected := "this is just a test"
+
+	compareError(t, err, nil)
+	compareStrings(t, result, expected)
+}
+
 func compareStrings(t *testing.T, result, expected string) {
 	t.Helper()
 
