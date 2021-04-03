@@ -20,14 +20,27 @@ func TestSearch(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	dict := Dict{}
-	dict.Add("test", "this is just a test")
+	t.Run("should add a new word", func(t *testing.T) {
+		word := "test"
+		value := "this is just a test"
+		dict := Dict{}
 
-	result, err := dict.Search("test")
-	expected := "this is just a test"
+		err := dict.Add(word, value)
 
-	compareError(t, err, nil)
-	compareStrings(t, result, expected)
+		compareError(t, err, nil)
+		compareDefinition(t, dict, word, value)
+	})
+
+	t.Run("should return an error when the word already exists", func(t *testing.T) {
+		word := "test"
+		value := "this is just a test"
+		dict := Dict{word: value}
+
+		err := dict.Add(word, value)
+
+		compareError(t, err, ErrWordAlreadyExists)
+		compareDefinition(t, dict, word, value)
+	})
 }
 
 func compareStrings(t *testing.T, result, expected string) {
@@ -43,5 +56,18 @@ func compareError(t *testing.T, result, expected error) {
 
 	if result != expected {
 		t.Errorf("result '%s', expected '%s'", result, expected)
+	}
+}
+
+func compareDefinition(t *testing.T, dict Dict, word, value string) {
+	t.Helper()
+
+	result, err := dict.Search(word)
+	if err != nil {
+		t.Fatal("should find the added word:", err)
+	}
+
+	if value != result {
+		t.Errorf("result '%s',  expected '%s'", result, value)
 	}
 }
