@@ -1,13 +1,17 @@
 package maps
 
-import "errors"
+const (
+	ErrNotFound          = ErrDict("could not find the word you are looking for")
+	ErrWordAlreadyExists = ErrDict("cannot add the word because it already exists")
+)
+
+type ErrDict string
+
+func (e ErrDict) Error() string {
+	return string(e)
+}
 
 type Dict map[string]string
-
-var (
-	ErrNotFound          = errors.New("could not find the word you are looking for")
-	ErrWordAlreadyExists = errors.New("cannot add the word because it already exists")
-)
 
 func (d Dict) Search(word string) (string, error) {
 	value, exists := d[word]
