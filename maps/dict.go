@@ -3,6 +3,7 @@ package maps
 const (
 	ErrNotFound          = ErrDict("could not find the word you are looking for")
 	ErrWordAlreadyExists = ErrDict("cannot add the word because it already exists")
+	ErrWordDoesNotExist  = ErrDict("the word could not be updated because it does not exist")
 )
 
 type ErrDict string
@@ -36,6 +37,16 @@ func (d Dict) Add(word, value string) error {
 	return nil
 }
 
-func (d Dict) Update(word, newValue string) {
-	d[word] = newValue
+func (d Dict) Update(word, newValue string) error {
+	_, err := d.Search(word)
+	switch err {
+	case ErrNotFound:
+		return ErrWordDoesNotExist
+	case nil:
+		d[word] = newValue
+	default:
+		return err
+	}
+
+	return nil
 }
