@@ -43,6 +43,17 @@ func TestAdd(t *testing.T) {
 	})
 }
 
+func TestUpdate(t *testing.T) {
+	word := "test"
+	value := "this is just a test"
+	dict := Dict{word: value}
+	newValue := "new value"
+
+	dict.Update(word, newValue)
+
+	compareDefinition(t, dict, word, newValue)
+}
+
 func compareStrings(t *testing.T, result, expected string) {
 	t.Helper()
 
