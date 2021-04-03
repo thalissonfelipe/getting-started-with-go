@@ -35,3 +35,7 @@ func (d Dict) Add(word, value string) error {
 
 	return nil
 }
+
+func (d Dict) Update(word, newValue string) {
+	d[word] = newValue
+}
