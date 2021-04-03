@@ -44,14 +44,27 @@ func TestAdd(t *testing.T) {
 }
 
 func TestUpdate(t *testing.T) {
-	word := "test"
-	value := "this is just a test"
-	dict := Dict{word: value}
-	newValue := "new value"
+	t.Run("should update an existent word", func(t *testing.T) {
+		word := "test"
+		value := "this is just a test"
+		dict := Dict{word: value}
+		newValue := "new value"
 
-	dict.Update(word, newValue)
+		err := dict.Update(word, newValue)
 
-	compareDefinition(t, dict, word, newValue)
+		compareError(t, err, nil)
+		compareDefinition(t, dict, word, newValue)
+	})
+
+	t.Run("should return an error when the word does not exists", func(t *testing.T) {
+		word := "test"
+		value := "this is just a test"
+		dict := Dict{}
+
+		err := dict.Update(word, value)
+
+		compareError(t, err, ErrWordDoesNotExist)
+	})
 }
 
 func compareStrings(t *testing.T, result, expected string) {
