@@ -67,6 +67,18 @@ func TestUpdate(t *testing.T) {
 	})
 }
 
+func TestDelete(t *testing.T) {
+	word := "test"
+	dict := Dict{word: "this is just a test"}
+
+	dict.Delete(word)
+
+	_, err := dict.Search(word)
+	if err != ErrNotFound {
+		t.Errorf("'%s' is expected to be deleted", word)
+	}
+}
+
 func compareStrings(t *testing.T, result, expected string) {
 	t.Helper()
 
