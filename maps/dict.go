@@ -50,3 +50,7 @@ func (d Dict) Update(word, newValue string) error {
 
 	return nil
 }
+
+func (d Dict) Delete(word string) {
+	delete(d, word)
+}
