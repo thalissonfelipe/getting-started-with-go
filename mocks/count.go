@@ -1,10 +1,13 @@
 package mocks
 
 import (
-	"bytes"
 	"fmt"
+	"io"
 )
 
-func Count(output *bytes.Buffer) {
-	fmt.Fprint(output, "3")
+func Count(output io.Writer) {
+	for i := 3; i > 0; i-- {
+		fmt.Fprintln(output, i)
+	}
+	fmt.Fprint(output, "Go!")
 }
