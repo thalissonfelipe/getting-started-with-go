@@ -5,9 +5,12 @@ import (
 	"io"
 )
 
+const lastWord = "Go!"
+const startCount = 3
+
 func Count(output io.Writer) {
-	for i := 3; i > 0; i-- {
+	for i := startCount; i > 0; i-- {
 		fmt.Fprintln(output, i)
 	}
-	fmt.Fprint(output, "Go!")
+	fmt.Fprint(output, lastWord)
 }
