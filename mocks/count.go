@@ -3,18 +3,29 @@ package mocks
 import (
 	"fmt"
 	"io"
-	"time"
 )
 
 const lastWord = "Go!"
 const startCount = 3
 
-func Count(output io.Writer) {
+type Sleeper interface {
+	Sleep()
+}
+
+type SleeperSpy struct {
+	Calls int
+}
+
+func (s *SleeperSpy) Sleep() {
+	s.Calls++
+}
+
+func Count(output io.Writer, sleeper Sleeper) {
 	for i := startCount; i > 0; i-- {
-		time.Sleep(1 * time.Second)
+		sleeper.Sleep()
 		fmt.Fprintln(output, i)
 	}
 
-	time.Sleep(1 * time.Second)
+	sleeper.Sleep()
 	fmt.Fprint(output, lastWord)
 }
